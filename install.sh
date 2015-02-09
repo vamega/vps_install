@@ -32,8 +32,14 @@ function partition_and_format()
     mkfs.btrfs -L "Root" /dev/vda2
 }
 
+function mount_devices()
+{
+    mount /dev/vda2 /mnt
+}
+
 partition_and_format
 create_mirrorlist
+mount_devices
 pacstrap /mnt base base-devel ${PACKAGES[@]}
 genfstab -U -p /mnt >> /mnt/etc/fstab
 
