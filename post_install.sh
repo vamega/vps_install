@@ -50,6 +50,7 @@ function install_aura()
     cd /home/me/builds
     tar -xvf aura-bin.tar.gz
     cd aura-bin
+    chown -R me:me /home/me/builds
     sudo -u me makepkg
     pacman -U aura-bin*pkg.tar.xz
 }
@@ -84,11 +85,6 @@ function generate_mkinitcpio()
     mkinitcpio -p linux
 }
 
-function exit()
-{
-    
-}
-trap finish EXIT
 
 set_up_language
 set_up_time
