@@ -85,6 +85,12 @@ function generate_mkinitcpio()
     mkinitcpio -p linux
 }
 
+function exit()
+{
+    
+}
+trap finish EXIT
+
 set_up_language
 set_up_time
 set_up_user

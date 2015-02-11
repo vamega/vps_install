@@ -31,7 +31,7 @@ function partition_and_format()
     mkswap /dev/vda1
     swapon /dev/vda1
 
-    mkfs.btrfs -L "Root" /dev/vda2
+    mkfs.btrfs -f -L "Root" /dev/vda2
 }
 
 function mount_devices()
@@ -39,9 +39,16 @@ function mount_devices()
     mount /dev/vda2 /mnt
 }
 
+function exit()
+{
+    swapoff -a
+    umount /mnt/
+}
+trap finish EXIT
+
+
 partition_and_format
 create_mirrorlist
 mount_devices
 pacstrap /mnt base base-devel ${PACKAGES[@]}
 genfstab -U -p /mnt >> /mnt/etc/fstab
-
