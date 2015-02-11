@@ -16,7 +16,6 @@ function set_up_reflector()
     cp data/reflector.timer /etc/systemd/system/reflector.timer
 
     systemctl enable reflector.timer
-    systemctl start reflector.service
 }
 
 function set_up_language()
@@ -47,7 +46,7 @@ function set_up_networking()
 function install_aura()
 {
     mkdir -p /home/me/builds
-    wget -O /home/me/builds/ https://aur.archlinux.org/packages/au/aura-bin/aura-bin.tar.gz
+    wget -P /home/me/builds/ https://aur.archlinux.org/packages/au/aura-bin/aura-bin.tar.gz
     cd /home/me/builds
     tar -xvf aura-bin.tar.gz
     cd aura-bin
