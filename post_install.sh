@@ -85,6 +85,7 @@ function generate_mkinitcpio()
 
 set_up_language
 set_up_time
+set_up_user
 set_up_reflector
 set_up_services
 install_aura
