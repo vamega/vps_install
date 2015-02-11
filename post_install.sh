@@ -73,6 +73,9 @@ function set_up_user()
     chmod 740 /etc/sudoers
     cp data/sudoers /etc/sudoers
     chmod 440 /etc/sudoers
+    mkdir -p /home/me/.ssh
+    cp data/id_ecdsa.pub /home/me/.ssh/authorized_keys
+    chown -R me:me /home/me/
 }
 
 function set_up_bootloader()
