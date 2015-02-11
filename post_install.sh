@@ -39,8 +39,8 @@ function set_up_networking()
 
     cp data/ethernet.network /etc/systemd/network/ethernet.network
     
-    systemctl enable networkd.service
-    systemctl start  networkd.service
+    systemctl enable systemd-networkd.service
+    systemctl start  systemd-networkd.service
 }
 
 function install_aura()
@@ -97,6 +97,7 @@ set_up_time
 set_up_user
 set_up_reflector
 set_up_services
+set_up_networking
 install_aura
 generate_mkinitcpio
 set_up_bootloader
