@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 source variables.sh
 
 function create_mirrorlist()

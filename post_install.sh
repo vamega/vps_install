@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 source variables.sh
 
 function set_up_services()
