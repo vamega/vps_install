@@ -28,7 +28,7 @@ function set_up_language()
 
 function set_up_time()
 {
-    ln -s /usr/share/zoneinfo/$TIME_ZOME /etc/localtime
+    ln -sf /usr/share/zoneinfo/$TIME_ZOME /etc/localtime
     hwclock --systohc --utc
 }
 
@@ -47,12 +47,14 @@ function install_aura()
 {
     mkdir -p /home/me/builds
     wget -P /home/me/builds/ https://aur.archlinux.org/packages/au/aura-bin/aura-bin.tar.gz
-    cd /home/me/builds
+    pushd /home/me/builds
     tar -xvf aura-bin.tar.gz
     cd aura-bin
     chown -R me:me /home/me/builds
     sudo -u me makepkg
-    pacman -U aura-bin*pkg.tar.xz
+    pacman-db-upgrade
+    pacman -U --noconfirm aura-bin*pkg.tar.xz
+    popd
 }
 
 function set_up_ssh()
@@ -81,6 +83,7 @@ function set_up_bootloader()
 
 function generate_mkinitcpio()
 {
+    cp data/mkinitcpio.conf
     cp data/mkinitcpio.conf /etc/mkinitcpio.conf
     mkinitcpio -p linux
 }
