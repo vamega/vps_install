@@ -7,7 +7,6 @@ source variables.sh
 function set_up_services()
 {
     systemctl enable nginx.service
-    systemctl start nginx.service
 }
 
 function set_up_reflector()
@@ -36,17 +35,14 @@ function set_up_networking()
 {
     echo $HOSTNAME > /etc/hostname
     cp data/hosts /etc/hosts
-
     cp data/ethernet.network /etc/systemd/network/ethernet.network
-    
     systemctl enable systemd-networkd.service
-    systemctl start  systemd-networkd.service
 }
 
 function install_aura()
 {
     mkdir -p /home/me/builds
-    wget -P /home/me/builds/ https://aur.archlinux.org/packages/au/aura-bin/aura-bin.tar.gz
+    wget -P /home/me/builds/ https://aur.archlinux.org/cgit/aur.git/snapshot/aura-bin.tar.gz
     pushd /home/me/builds
     tar -xvf aura-bin.tar.gz
     cd aura-bin
@@ -64,7 +60,6 @@ function set_up_ssh()
     cp data/id_ecdsa.pub /home/me/.ssh/
     
     systemctl enable openssh.service
-    systemctl start  openssh.service
 }
 
 function set_up_user()
@@ -82,6 +77,7 @@ function set_up_bootloader()
 {
     syslinux-install_update -i -a -m
     cp data/syslinux.cfg /boot/syslinux/syslinux.cfg
+    dd if=/usr/share/syslinux/gptmbr.bin of=/dev/vda bs=440 count=1
 }
 
 function generate_mkinitcpio()
@@ -99,5 +95,6 @@ set_up_reflector
 set_up_services
 set_up_networking
 install_aura
-generate_mkinitcpio
+pgenerate_mkinitcpio
 set_up_bootloader
+passwd

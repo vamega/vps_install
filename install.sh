@@ -27,6 +27,7 @@ function partition_and_format()
     sgdisk -Z /dev/vda
     sgdisk -n 0:0:+2G -t 0:8200 -c 0:"Swap" /dev/vda
     sgdisk -n 0:0:0 -t 0:8300 -c 0:"Root" /dev/vda
+    sgdisk -attributes=2:set:2
 
     mkswap /dev/vda1
     swapon /dev/vda1
@@ -39,16 +40,25 @@ function mount_devices()
     mount /dev/vda2 /mnt
 }
 
-function exit()
+function finish()
 {
     swapoff -a
     umount /mnt/
 }
+
 trap finish EXIT
 
 
+cd "$(dirname "$0")"
 partition_and_format
 create_mirrorlist
 mount_devices
 pacstrap /mnt base base-devel ${PACKAGES[@]}
 genfstab -U -p /mnt >> /mnt/etc/fstab
+cp -r . /mnt/root
+arch-chroot /mnt /mnt/root/post_install.sh
+
+echo "Finished Installing system."
+echo "Unmount ISO, then hit any key to continue."
+read ANSWER
+reboot

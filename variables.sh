@@ -33,3 +33,6 @@ PACKAGES=("openssh"
           # Needed for mkinitcpio compression.
           "lz4"
          )
+
+AUR_PACKAGE=("aur-git"
+            )
