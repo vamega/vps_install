@@ -10,5 +10,5 @@ ip route add default via ${GATEWAY4} dev ${INSTALLER_DEVICE_NAME}
 echo "nameserver 8.8.8.8 > /etc/resolv.conf"
 
 passwd
-echo "PasswordAuthentication no"
+echo "PasswordAuthentication yes" >> /etc/ssh/sshd_conf
 systemctl start sshd
