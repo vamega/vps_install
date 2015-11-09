@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-source variables.sh
-
 function set_up_services()
 {
     systemctl enable nginx.service
@@ -87,6 +85,8 @@ function generate_mkinitcpio()
     mkinitcpio -p linux
 }
 
+cd "$(dirname "$0")"
+source variables.sh
 
 set_up_language
 set_up_time
@@ -95,6 +95,6 @@ set_up_reflector
 set_up_services
 set_up_networking
 install_aura
-pgenerate_mkinitcpio
+generate_mkinitcpio
 set_up_bootloader
 passwd

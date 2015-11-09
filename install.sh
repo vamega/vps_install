@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-source variables.sh
-
 function create_mirrorlist()
 {
     local MIRROR_LIST_URL="https://www.archlinux.org/mirrorlist/?country=CA&country=US&protocol=http&ip_version=4"
@@ -48,15 +46,16 @@ function finish()
 
 trap finish EXIT
 
-
 cd "$(dirname "$0")"
+source variables.sh
+
 partition_and_format
 create_mirrorlist
 mount_devices
 pacstrap /mnt base base-devel ${PACKAGES[@]}
 genfstab -U -p /mnt >> /mnt/etc/fstab
 cp -r . /mnt/root
-arch-chroot /mnt /mnt/root/post_install.sh
+arch-chroot /mnt /root/post_install.sh
 
 echo "Finished Installing system."
 echo "Unmount ISO, then hit any key to continue."
