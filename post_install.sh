@@ -75,12 +75,10 @@ function set_up_bootloader()
 {
     syslinux-install_update -i -a -m
     cp data/syslinux.cfg /boot/syslinux/syslinux.cfg
-    dd if=/usr/share/syslinux/gptmbr.bin of=/dev/vda bs=440 count=1
 }
 
 function generate_mkinitcpio()
 {
-    cp data/mkinitcpio.conf
     cp data/mkinitcpio.conf /etc/mkinitcpio.conf
     mkinitcpio -p linux
 }
