@@ -73,8 +73,7 @@ function set_up_user()
 
 function set_up_bootloader()
 {
-    syslinux-install_update -i -m
-    
+    syslinux-install_update -i -a -m
     cp data/syslinux.cfg /boot/syslinux/syslinux.cfg
 }
 
