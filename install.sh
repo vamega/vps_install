@@ -23,9 +23,10 @@ function create_mirrorlist()
 function partition_and_format()
 {
     sgdisk -Z /dev/vda
-    sgdisk -n 0:0:+2G -t 0:8200 -c 0:"Swap" /dev/vda
-    sgdisk -n 0:0:0 -t 0:8300 -c 0:"Root" /dev/vda
-    sgdisk -attributes=2:set:2
+    parted --script /dev/vda mklabel msdos
+    parted --script /dev/vda mkpart primary linux-swap 1MiB 2GiB
+    parted --script /dev/vda mkpart primary btrfs 2GiB 100%
+    parted --script /dev/vda set 2 boot on
 
     mkswap /dev/vda1
     swapon /dev/vda1
