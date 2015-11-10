@@ -7,7 +7,6 @@ function set_up_services()
     systemctl enable nginx.service
     systemctl enable systemd-networkd.service
     systemctl enable systemd-resolved.service
-    
 }
 
 function set_up_reflector()
@@ -60,7 +59,7 @@ function set_up_ssh()
     mkdir -p /home/me/.ssh/
     mkdir -p /root/.ssh/
     cat data/id_ecdsa.pub >> /home/me/.ssh/authorized_keys
-    cp data/id_ecdsa.pub >> /root/.ssh/authorized_keys
+    cat data/id_ecdsa.pub >> /root/.ssh/authorized_keys
     
     systemctl enable sshd.service
 }
