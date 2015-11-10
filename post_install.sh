@@ -5,6 +5,10 @@ set -euo pipefail
 function set_up_services()
 {
     systemctl enable nginx.service
+    systemctl enable systemd-networkd.service
+    systemctl enable systemd-resolved.service
+    rm /etc/resolv.conf
+    ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 }
 
 function set_up_reflector()
@@ -55,9 +59,11 @@ function set_up_ssh()
 {
     cp data/sshd_config /etc/ssh/sshd_config
     mkdir -p /home/me/.ssh/
-    cp data/id_ecdsa.pub /home/me/.ssh/
+    mkdir -p /root/.ssh/
+    cat data/id_ecdsa.pub >> /home/me/.ssh/authorized_keys
+    cp data/id_ecdsa.pub >> /root/.ssh/authorized_keys
     
-    systemctl enable openssh.service
+    systemctl enable sshd.service
 }
 
 function set_up_user()
@@ -92,6 +98,7 @@ set_up_user
 set_up_reflector
 set_up_services
 set_up_networking
+set_up_ssh
 install_aura
 generate_mkinitcpio
 set_up_bootloader

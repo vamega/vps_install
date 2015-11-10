@@ -1,15 +1,18 @@
 [Match]
 Name=ens3
 
+[Address]
+Address=2607:5300:60:4234::3e1:aaaa/112
+Address=192.95.10.154/32
+Peer=192.99.17.254/32
+
 [Network]
+DHCP=no
 DNS=2001:4860:4860::8888
 DNS=2001:4860:4860::8844
 DNS=8.8.8.8
 DNS=8.8.4.4
 
-Address=2607:5300:60:4234::3e1:aaaa/112
-Address=192.95.10.154/32
-Peer=192.99.17.254/32
-
+[Route]
 Gateway=2607:5300:60:42ff:ff:ff:ff:ff
 Gateway=192.99.17.254
