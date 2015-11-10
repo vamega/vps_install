@@ -20,7 +20,7 @@ PACKAGES=("openssh"
           "jdk8-openjdk"
           "reflector"
           "wget"
-          "syslinux"
+          "grub"
 
           # Needed for automated syslinux script
           "gptfdisk"

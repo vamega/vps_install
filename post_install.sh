@@ -73,8 +73,8 @@ function set_up_user()
 
 function set_up_bootloader()
 {
-    syslinux-install_update -i -a -m
-    cp data/syslinux.cfg /boot/syslinux/syslinux.cfg
+    grub-install --recheck /dev/vda
+    grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 function generate_mkinitcpio()
