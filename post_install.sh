@@ -73,7 +73,8 @@ function set_up_user()
 
 function set_up_bootloader()
 {
-    syslinux-install_update -i -a -m
+    syslinux-install_update -i -m
+    dd bs=440 conv=notrunc count=1 if=usr/lib/syslinux/bios/gptmbr.bin of=/dev/vda
     cp data/syslinux.cfg /boot/syslinux/syslinux.cfg
 }
 

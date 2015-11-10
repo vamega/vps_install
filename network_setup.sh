@@ -11,5 +11,4 @@ echo "nameserver 8.8.8.8 >> /etc/resolv.conf"
 
 passwd
 echo "PasswordAuthentication yes" >> /etc/ssh/sshd_conf
-echo "PermitRootLogin yes" >> /etc/ssh/sshd_conf
 systemctl start sshd
