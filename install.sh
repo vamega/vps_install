@@ -45,6 +45,12 @@ function finish()
     umount /mnt/
 }
 
+function set_up_resolv_conf()
+{
+    rm /mnt/etc/resolv.conf
+    chroot /mnt ln -sfv /run/systemd/resolve/resolv.conf /etc/resolv.conf
+}
+
 trap finish EXIT
 
 cd "$(dirname "$0")"
@@ -57,6 +63,9 @@ pacstrap /mnt base base-devel ${PACKAGES[@]}
 genfstab -U -p /mnt >> /mnt/etc/fstab
 cp -r . /mnt/root
 arch-chroot /mnt /root/post_install.sh
+set_up_resolv_conf
+
+
 
 echo "Finished Installing system."
 echo "Unmount ISO, then hit any key to continue."

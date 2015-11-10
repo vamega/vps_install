@@ -7,8 +7,7 @@ function set_up_services()
     systemctl enable nginx.service
     systemctl enable systemd-networkd.service
     systemctl enable systemd-resolved.service
-    rm /etc/resolv.conf
-    ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+    
 }
 
 function set_up_reflector()
